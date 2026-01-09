@@ -1,31 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VIP Player</title>
+    <title>VIP STREAMING</title>
+    <!-- Icons Support -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body, html { margin:0; padding:0; background:#000; color:#fff; overflow-x:hidden; font-family:sans-serif; height:100%; }
-        .ad-slot { width:100%; height:250px; display:flex; justify-content:center; align-items:center; background:#050505; border-bottom:1px solid #111; overflow:hidden; }
-        video { width:100%; height:auto; max-height:450px; display:block; background:#000; box-shadow:0 0 30px rgba(255,153,0,0.2); }
-        .dl-box { padding:25px; text-align:center; }
-        .btn { display:block; background:#ff9900; color:#000; padding:18px; border-radius:15px; text-decoration:none; font-weight:900; font-size:1.3rem; box-shadow:0 5px 20px rgba(255,153,0,0.4); }
+        body, html { margin:0; padding:0; background:#000; color:#fff; overflow-x:hidden; font-family: sans-serif; }
+        
+        /* Ads Area */
+        .ad-slot { width:100%; min-height:260px; display:flex; justify-content:center; align-items:center; background:#050505; border-bottom:1px solid #222; padding: 10px 0; }
+
+        /* Video Player */
+        .video-container { width:100%; background:#000; position:relative; }
+        video { width:100%; height:auto; max-height:80vh; display:block; outline:none; background:#000; }
+
+        /* Download Button */
+        .dl-box { padding:20px; text-align:center; }
+        .btn { 
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            background: linear-gradient(to right, #ff9900, #ffcc00); 
+            color: #000; padding: 18px; border-radius: 12px; 
+            text-decoration: none; font-weight: 900; font-size: 1.2rem; 
+            box-shadow: 0 4px 20px rgba(255,153,0,0.5); 
+        }
     </style>
 </head>
 <body>
-    <div class="ad-slot"><!-- TOP AD HERE --></div>
-    <video id="vPlayer" controls playsinline poster=""><source id="vSource" src="" type="video/mp4"></video>
-    <div class="dl-box"><a id="dlBtn" href="#" class="btn">📥 DOWNLOAD HD VIDEO</a></div>
-    <div class="ad-slot"><!-- BOT AD HERE --></div>
+
+    <!-- TOP BANNER AD (300x250) -->
+    <div class="ad-slot">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : 'b653a1e8581c53054d4554d4d899f7de',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="https://www.highperformanceformat.com/b653a1e8581c53054d4554d4d899f7de/invoke.js"></script>
+    </div>
+
+    <!-- PLAYER -->
+    <div class="video-container">
+        <video id="vPlayer" controls playsinline poster="">
+            <source id="vSource" src="" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- DOWNLOAD BUTTON (Direct Link) -->
+    <div class="dl-box">
+        <a id="dlBtn" href="https://www.effectivegatecpm.com/vwizjp7s?key=82eaaf585ed86a0767368d003252b739" class="btn">
+            <i class="fas fa-download"></i> DOWNLOAD FULL HD
+        </a>
+    </div>
+
+    <!-- BOTTOM BANNER AD (300x250) -->
+    <div class="ad-slot">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : 'b653a1e8581c53054d4554d4d899f7de',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="https://www.highperformanceformat.com/b653a1e8581c53054d4554d4d899f7de/invoke.js"></script>
+    </div>
+
+    <!-- SOCIAL BAR AD -->
+    <script type='text/javascript' src='https://pl23880904.effectivegatecpm.com/d0/7e/51/d07e5165c606561758c28bb8b4e2c65d.js'></script>
+
     <script>
-        const params = new URLSearchParams(window.location.search);
-        let v = params.get('v'); let p = params.get('p');
+        const urlParams = new URLSearchParams(window.location.search);
+        let v = urlParams.get('v'); 
+        let p = urlParams.get('p'); 
+
+        const player = document.getElementById('vPlayer');
+        const source = document.getElementById('vSource');
+
         if(v) {
-            if(v.includes('dropbox.com')) v = v.replace('www.dropbox.com', 'dl.dropboxusercontent.com').split('?')[0] + '?raw=1';
-            if(v.includes('pixeldrain.com/u/')) v = 'https://pixeldrain.com/api/file/' + v.split('/').pop();
-            document.getElementById('vSource').src = v; document.getElementById('vPlayer').load();
+            v = decodeURIComponent(v);
+            // Dropbox Auto Fix
+            if(v.includes('dropbox.com')) {
+                v = v.replace('www.dropbox.com', 'dl.dropboxusercontent.com').replace('?dl=0', '').replace('?dl=1', '') + '?raw=1';
+            }
+            // Pixeldrain Auto Fix
+            if(v.includes('pixeldrain.com/u/')) {
+                v = 'https://pixeldrain.com/api/file/' + v.split('/').pop();
+            }
+            source.src = v;
         }
-        if(p) document.getElementById('vPlayer').poster = p;
+
+        if(p) {
+            player.poster = decodeURIComponent(p);
+        }
+
+        player.load();
     </script>
 </body>
 </html>
