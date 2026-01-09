@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VIP Player</title>
+    <style>
+        body, html { margin:0; padding:0; background:#000; color:#fff; overflow-x:hidden; font-family:sans-serif; height:100%; }
+        .ad-slot { width:100%; height:250px; display:flex; justify-content:center; align-items:center; background:#050505; border-bottom:1px solid #111; overflow:hidden; }
+        video { width:100%; height:auto; max-height:450px; display:block; background:#000; box-shadow:0 0 30px rgba(255,153,0,0.2); }
+        .dl-box { padding:25px; text-align:center; }
+        .btn { display:block; background:#ff9900; color:#000; padding:18px; border-radius:15px; text-decoration:none; font-weight:900; font-size:1.3rem; box-shadow:0 5px 20px rgba(255,153,0,0.4); }
+    </style>
+</head>
+<body>
+    <div class="ad-slot"><!-- TOP AD HERE --></div>
+    <video id="vPlayer" controls playsinline poster=""><source id="vSource" src="" type="video/mp4"></video>
+    <div class="dl-box"><a id="dlBtn" href="#" class="btn">📥 DOWNLOAD HD VIDEO</a></div>
+    <div class="ad-slot"><!-- BOT AD HERE --></div>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        let v = params.get('v'); let p = params.get('p');
+        if(v) {
+            if(v.includes('dropbox.com')) v = v.replace('www.dropbox.com', 'dl.dropboxusercontent.com').split('?')[0] + '?raw=1';
+            if(v.includes('pixeldrain.com/u/')) v = 'https://pixeldrain.com/api/file/' + v.split('/').pop();
+            document.getElementById('vSource').src = v; document.getElementById('vPlayer').load();
+        }
+        if(p) document.getElementById('vPlayer').poster = p;
+    </script>
+</body>
+</html>
